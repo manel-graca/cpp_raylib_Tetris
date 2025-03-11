@@ -1,0 +1,8 @@
+{
+    "name": "cpp-rlib-tetris",
+    "description": "cpp-rlib-tetris",
+    "license": "MIT",
+    "dependencies": [
+        "raylib"
+    ]
+}
