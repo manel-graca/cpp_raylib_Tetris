@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include <cstdlib>
 #include <raylib.h>
 
 Game::Game()
@@ -8,6 +9,7 @@ Game::Game()
     currentBlock = GetRandomBlock();
     nextBlock = GetRandomBlock();
     gameOver = false;
+    score = 0;
 }
 
 Block Game::GetRandomBlock()
@@ -16,16 +18,8 @@ Block Game::GetRandomBlock()
     {
         blocks = GetAllBlocks();
     }
-
-    int randomIndex = GetRandomValue(0, blocks.size() - 1);
-    if (randomIndex < 0)
-        randomIndex = 0;
-
-    if (randomIndex >= blocks.size())
-        randomIndex = blocks.size() - 1;
-
+    int randomIndex = rand() % blocks.size();
     Block block = blocks[randomIndex];
-    currentBlock = block;
     blocks.erase(blocks.begin() + randomIndex);
     return block;
 }
@@ -38,12 +32,29 @@ std::vector<Block> Game::GetAllBlocks()
 void Game::Draw()
 {
     grid.Draw();
-    currentBlock.Draw();
+    currentBlock.Draw(11, 11);
+    switch (nextBlock.id)
+    {
+    case 3:
+        nextBlock.Draw(255, 290);
+        break;
+    case 4:
+        nextBlock.Draw(255, 280);
+        break;
+    default:
+        nextBlock.Draw(270, 270);
+        break;
+    }
 }
 
 void Game::Update()
 {
     HandleInput();
+}
+
+Block Game::GetNextBlock()
+{
+    return nextBlock;
 }
 
 void Game::HandleInput()
@@ -56,15 +67,19 @@ void Game::HandleInput()
     }
     switch (key)
     {
+    case KEY_A:
     case KEY_LEFT:
         MoveBlockH(true);
         break;
+    case KEY_D:
     case KEY_RIGHT:
         MoveBlockH(false);
         break;
+    case KEY_S:
     case KEY_DOWN:
         MoveBlockDown();
         break;
+    case KEY_W:
     case KEY_UP:
 
         if (gameOver)
@@ -130,7 +145,8 @@ void Game::LockBlock()
 
     nextBlock = GetRandomBlock();
 
-    grid.ClearFullRows();
+    int completed = grid.ClearFullRows();
+    score += completed * 10;
 }
 
 bool Game::IsBlockOutside(Block block)

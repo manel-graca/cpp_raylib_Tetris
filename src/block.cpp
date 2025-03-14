@@ -3,19 +3,19 @@
 #include "gameConfig.hpp"
 Block::Block()
 {
-    cellSize = 25;
+    cellSize = 30;
     rotationState = 0;
     colors = GetCellColors();
     rowOffset = 0;
     columnOffset = 0;
 }
 
-void Block::Draw()
+void Block::Draw(int offsetX, int offsetY)
 {
     std::vector<Position> tiles = GetCellPositions();
     for (Position item : tiles)
     {
-        DrawRectangle(GameConfig::offsetX + item.column * cellSize, GameConfig::offsetY + item.row * cellSize, cellSize - 1, cellSize - 1, colors[id]);
+        DrawRectangle(offsetX + item.column * cellSize, offsetY + item.row * cellSize, cellSize - 1, cellSize - 1, colors[id]);
     }
 }
 

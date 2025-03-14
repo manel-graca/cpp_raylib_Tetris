@@ -8,7 +8,7 @@ class Block
   public:
     Block();
     int id;
-    void Draw();
+    void Draw(int offsetX, int offsetY);
     std::map<int, std::vector<Position>> cells;
     int Rotate();
     int UndoRotation();

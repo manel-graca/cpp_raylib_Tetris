@@ -6,6 +6,7 @@ project(cpp-rlib-tetris VERSION 0.1.0 LANGUAGES C CXX)
 find_package(raylib CONFIG REQUIRED)
 
 include_directories(src)
+
 add_executable(cpp-rlib-tetris 
     src/main.cpp 
     src/grid.cpp
@@ -16,5 +17,3 @@ add_executable(cpp-rlib-tetris
     src/game.cpp
 )
 target_link_libraries(cpp-rlib-tetris PRIVATE raylib)
-
-

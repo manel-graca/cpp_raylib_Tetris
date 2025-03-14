@@ -13,6 +13,8 @@ class Game
     void Draw();
     void Update();
     void MoveBlockDown();
+    int score;
+    Block GetNextBlock();
 
   private:
     bool IsBlockOutside(Block block);
