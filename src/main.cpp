@@ -17,13 +17,16 @@ bool eventTriggered(double interval)
 
 int main()
 {
+    Image icon = LoadImage("assets/graphics/iconpng24.png");
+
     Color DARK_BLUE = {44, 44, 127, 255};
     Color LIGHT_BLUE = {59, 85, 162, 255};
 
-    InitWindow(500, 620, "Teterix do Manele Grassolax");
+    InitWindow(500, 620, "Tetris by Manel");
     SetTargetFPS(60);
+    SetWindowIcon(icon);
 
-    Font font = LoadFontEx("Fonts/tetris-the-absolute-the-grand-master-2.ttf", 32, 0, 0);
+    Font font = LoadFontEx("assets/fonts/tetris-the-absolute-the-grand-master-2.ttf", 32, 0, 0);
 
     Game game = Game();
 
@@ -47,7 +50,7 @@ int main()
         DrawRectangleRounded({320, 55, 170, 60}, 0.3, 6, LIGHT_BLUE);
 
         char scoreText[10];
-        sprintf(scoreText, "%d", game.score);
+        sprintf_s(scoreText, "%d", game.score);
         Vector2 textSize = MeasureTextEx(font, scoreText, 38, 2);
 
         DrawTextEx(font, scoreText, {320 + (170 - textSize.x) / 2, 65}, 38, 2, WHITE);
@@ -55,6 +58,7 @@ int main()
         game.Draw();
         EndDrawing();
     }
-
+    UnloadImage(icon);
+    UnloadFont(font);
     CloseWindow();
 }
